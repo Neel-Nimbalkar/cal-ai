@@ -24,6 +24,15 @@ node test/verify.js
 ## Production gaps
 This validation build stores diary and waitlist data locally. Before traffic, connect the waitlist to an email provider, add consent/privacy pages, production analytics, authentication/sync, a live nutrition API, and the photo-estimation pipeline. CalAI is not a medical device and calorie targets are estimates.
 
+## Photo-estimation benchmark
+The photo-based meal estimation flow (roadmap item, not yet implemented) has a
+reproducible benchmark harness and fixture set under `benchmark/`. Run it with:
+```bash
+npm run bench
+```
+See `docs/PHOTO_ESTIMATION_BENCHMARK.md` for methodology, metrics, launch gates, and how
+to point it at a real provider instead of the offline demo estimator.
+
 ## Production waitlist
 
 The waitlist uses Netlify Functions, Netlify Blobs, and Resend for double opt-in. Set these Netlify environment variables before accepting signups:
