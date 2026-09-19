@@ -23,3 +23,12 @@ node test/verify.js
 
 ## Production gaps
 This validation build stores diary and waitlist data locally. Before traffic, connect the waitlist to an email provider, add consent/privacy pages, production analytics, authentication/sync, a live nutrition API, and the photo-estimation pipeline. CalAI is not a medical device and calorie targets are estimates.
+
+## Production waitlist
+
+The waitlist uses Netlify Functions, Netlify Blobs, and Resend for double opt-in. Set these Netlify environment variables before accepting signups:
+
+- `RESEND_API_KEY` — Resend API key with send permission
+- `WAITLIST_FROM` — verified sender, for example `CalAI <hello@yourdomain.com>`
+
+New signups remain `pending` until the recipient follows the one-time confirmation link. Links expire after 7 days. Privacy and consent notices are available at `/privacy.html` and `/consent.html`.
