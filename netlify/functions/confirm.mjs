@@ -1,7 +1,7 @@
 import { getStore } from '@netlify/blobs';
 import crypto from 'node:crypto';
 const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
-const page=(title,text)=>({statusCode:200,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'},body:`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} — CalAI</title><link rel="stylesheet" href="/styles.css"></head><body><main class="legal"><a href="/">← CalAI</a><section class="card"><h1>${title}</h1><p>${text}</p><a class="button" href="/">Back to CalAI</a></section></main></body></html>`});
+const page=(title,text)=>new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} — CalAI</title><link rel="stylesheet" href="/styles.css"></head><body><main class="legal"><a href="/">← CalAI</a><section class="card"><h1>${title}</h1><p>${text}</p><a class="button" href="/">Back to CalAI</a></section></main></body></html>`,{status:200,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store'}});
 export default async req=>{
   const token=new URL(req.url).searchParams.get('token')||'';
   if(!/^[a-f0-9]{64}$/.test(token)) return page('Invalid confirmation link','This confirmation link is invalid. Submit the waitlist form again for a new one.');

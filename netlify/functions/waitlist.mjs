@@ -1,13 +1,13 @@
 import { getStore } from '@netlify/blobs';
 import crypto from 'node:crypto';
 
-const json=(statusCode,body)=>({statusCode,headers:{'content-type':'application/json','cache-control':'no-store','access-control-allow-origin':process.env.URL||'https://cal-ai-cw9a.netlify.app'},body:JSON.stringify(body)});
+const json=(status,body)=>new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json','cache-control':'no-store','access-control-allow-origin':process.env.URL||'https://cal-ai-cw9a.netlify.app'}});
 const validEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)&&v.length<=254;
 const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 
 export default async req=>{
   if(req.method!=='POST') return json(405,{error:'Method not allowed'});
-  let body; try{body=JSON.parse(req.body||'{}')}catch{return json(400,{error:'Invalid request'})}
+  let body; try{body=await req.json()}catch{return json(400,{error:'Invalid request'})}
   const email=String(body.email||'').trim().toLowerCase(),friction=String(body.friction||'').slice(0,100),consent=body.consent===true;
   if(!validEmail(email)||!friction||!consent) return json(400,{error:'Enter a valid email, answer the question, and agree to receive waitlist emails.'});
   const store=getStore({name:'calai-waitlist',consistency:'strong'}),key=`subscriber-${hash(email)}`;
