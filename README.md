@@ -8,7 +8,9 @@ A responsive, privacy-first calorie and macro tracking MVP. It runs as a zero-de
 - 30-food search, meal diary, macro totals, 14-day history
 - Local persistence, JSON export, and data reset
 - Waitlist email plus friction-segmentation question
-- Responsive interface and zero third-party runtime dependencies
+- Responsive interface and zero third-party browser dependencies
+- Photo meal logging with preview, per-item/overall confidence, portion correction, and diary integration
+- Honest demo mode when no vision provider is configured; transient provider processing when configured
 
 ## Run
 ```bash
@@ -22,10 +24,10 @@ node test/verify.js
 ```
 
 ## Production gaps
-This validation build stores diary and waitlist data locally. Before traffic, connect the waitlist to an email provider, add consent/privacy pages, production analytics, authentication/sync, a live nutrition API, and the photo-estimation pipeline. CalAI is not a medical device and calorie targets are estimates.
+This validation build stores diary and waitlist data locally. Before traffic, connect the waitlist to an email provider, add consent/privacy pages, production analytics, authentication/sync, a live nutrition API, and production-grade photo-estimation validation. CalAI is not a medical device and calorie targets are estimates.
 
 ## Photo-estimation benchmark
-The photo-based meal estimation flow (roadmap item, not yet implemented) has a
+The photo-based meal estimation flow has an upload/review/correct/log UI plus a
 reproducible benchmark harness and fixture set under `benchmark/`. Run it with:
 ```bash
 npm run bench
@@ -41,3 +43,12 @@ The waitlist uses Netlify Functions, Netlify Blobs, and Resend for double opt-in
 - `WAITLIST_FROM` — verified sender, for example `CalAI <hello@yourdomain.com>`
 
 New signups remain `pending` until the recipient follows the one-time confirmation link. Links expire after 7 days. Privacy and consent notices are available at `/privacy.html` and `/consent.html`.
+
+## Photo estimation configuration
+
+The endpoint is `POST /api/estimate-meal`. Without provider credentials it returns a clearly labeled deterministic demo meal so the review and correction UX remains testable; it never pretends the photo was analyzed. To enable live image analysis, set:
+
+- `OPENAI_API_KEY` — server-side only; never expose it in browser code
+- `CALAI_VISION_MODEL` — optional, defaults to `gpt-4o-mini`
+
+Accepted photos are JPEG, PNG, or WebP up to 5 MB. CalAI does not write image bytes to storage or the diary, responses use `Cache-Control: no-store`, and only corrected nutrition totals are persisted locally. Provider processing is still subject to that provider's data terms. AI estimates are explicitly non-medical and require review before logging.
