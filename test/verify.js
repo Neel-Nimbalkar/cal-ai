@@ -7,5 +7,5 @@ t('photo estimation flow exists',()=>['meal-photo','estimate-photo','overall-con
 t('photo validation and transient privacy copy exist',()=>{assert.ok(js.includes("image/jpeg"));assert.ok(js.includes('5*1024*1024'));assert.ok(html.includes('not saved by CalAI'))});
 t('confidence and correction are implemented',()=>{assert.ok(js.includes('confidenceLabel'));assert.ok(js.includes('correctedRatio'));assert.ok(js.includes('Corrected total'))});
 t('photo meals integrate with diary',()=>{assert.ok(js.includes("source:'photo-estimate'"));assert.ok(js.includes("meal:$('#meal').value"))});
-t('estimator has provider and honest demo modes',()=>{assert.ok(estimator.includes('OPENAI_API_KEY'));assert.ok(estimator.includes("mode:'demo'"));assert.ok(estimator.includes('Demo estimate—not image analysis'))});
+t('estimator has provider and honest demo modes',()=>{assert.ok(estimator.includes('OPENAI_API_KEY'));assert.ok(estimator.includes("CALAI_PHOTO_PROVIDER_ENABLED==='true'"));assert.ok(estimator.includes("mode:'demo'"));assert.ok(estimator.includes('Demo estimate—not image analysis'))});
 t('estimator validates uploads and disables caching',()=>{assert.ok(estimator.includes('MAX_BYTES'));assert.ok(estimator.includes("'cache-control':'no-store'"));assert.ok(estimator.includes('ALLOWED'))});
