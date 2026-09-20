@@ -1,0 +1,378 @@
+{
+  "mode": "demo",
+  "generatedAt": "2026-09-19T23:54:37.190Z",
+  "caseCount": 12,
+  "itemPrecisionRecall": {
+    "tp": 14,
+    "fp": 1,
+    "fn": 4,
+    "precision": 0.9333333333333333,
+    "recall": 0.7777777777777778,
+    "f1": 0.8484848484848485
+  },
+  "calorieMapeRaw": 18.041414614037134,
+  "macroMape": {
+    "protein": 34.19529639176298,
+    "carbs": 19.394044077650438,
+    "fat": 87.49217782881546
+  },
+  "calibration": {
+    "brier": 0.20309166666666667,
+    "ece": 0.1775,
+    "bins": [
+      {
+        "count": 2,
+        "avgConfidence": 0.025,
+        "avgAccuracy": 0
+      },
+      {
+        "count": 1,
+        "avgConfidence": 0.38,
+        "avgAccuracy": 0
+      },
+      {
+        "count": 2,
+        "avgConfidence": 0.45999999999999996,
+        "avgAccuracy": 0.5
+      },
+      {
+        "count": 3,
+        "avgConfidence": 0.6766666666666667,
+        "avgAccuracy": 0.3333333333333333
+      },
+      {
+        "count": 4,
+        "avgConfidence": 0.8975,
+        "avgAccuracy": 0.75
+      }
+    ]
+  },
+  "coverage": {
+    "counts": {
+      "high": 4,
+      "medium": 4,
+      "low": 4
+    },
+    "coverage": {
+      "high": 0.3333333333333333,
+      "medium": 0.3333333333333333,
+      "low": 0.3333333333333333
+    }
+  },
+  "highTierAccuracy": 0.75,
+  "correction": {
+    "correctedCaseCount": 10,
+    "beforeMeanApe": 37.61121239616368,
+    "afterMeanApe": 16.666945330885675,
+    "absoluteImprovementPct": 20.944267065278005,
+    "improvedCaseCount": 8,
+    "rows": [
+      {
+        "id": "single-001",
+        "beforeApe": 6.451612903225806,
+        "afterApe": 0.20161290322580644
+      },
+      {
+        "id": "mixed-003",
+        "beforeApe": 2.264808362369338,
+        "afterApe": 31.03055481104261
+      },
+      {
+        "id": "mixed-004",
+        "beforeApe": 28.246753246753247,
+        "afterApe": 13.520408163265296
+      },
+      {
+        "id": "hard-005",
+        "beforeApe": 29.914529914529915,
+        "afterApe": 0.12210012210011863
+      },
+      {
+        "id": "hard-006",
+        "beforeApe": 100,
+        "afterApe": 60
+      },
+      {
+        "id": "misid-007",
+        "beforeApe": 0.03846153846154721,
+        "afterApe": 20.76923076923077
+      },
+      {
+        "id": "multi-008",
+        "beforeApe": 21.31074453856443,
+        "afterApe": 14.706069677090621
+      },
+      {
+        "id": "hard-010",
+        "beforeApe": 50,
+        "afterApe": 0
+      },
+      {
+        "id": "error-011",
+        "beforeApe": 100,
+        "afterApe": 0
+      },
+      {
+        "id": "multi-012",
+        "beforeApe": 37.88521345773254,
+        "afterApe": 26.319476862901524
+      }
+    ]
+  },
+  "latency": {
+    "mean": 1246.6666666666667,
+    "p50": 1120,
+    "p95": 2100,
+    "max": 2100
+  },
+  "failureRate": 0.16666666666666666,
+  "failures": [
+    {
+      "id": "hard-006",
+      "reason": "no_items_detected"
+    },
+    {
+      "id": "error-011",
+      "reason": "estimation_error"
+    }
+  ],
+  "perCase": [
+    {
+      "id": "single-001",
+      "photo_ref": "grilled-chicken-plate-01",
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "calApe": 6.451612903225806,
+      "proteinApe": 6.66666666666667,
+      "carbsApe": 0,
+      "fatApe": 7.407407407407398,
+      "confidence": 0.86,
+      "tier": "high",
+      "withinTolerance": true,
+      "isFailure": false,
+      "latencyMs": 1120
+    },
+    {
+      "id": "single-002",
+      "photo_ref": "banana-01",
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "calApe": 1.9047619047619049,
+      "proteinApe": 0,
+      "carbsApe": 1.8518518518518516,
+      "fatApe": 0,
+      "confidence": 0.94,
+      "tier": "high",
+      "withinTolerance": true,
+      "isFailure": false,
+      "latencyMs": 640
+    },
+    {
+      "id": "mixed-003",
+      "photo_ref": "rice-broccoli-chicken-bowl-01",
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "calApe": 2.264808362369338,
+      "proteinApe": 12.747252747252741,
+      "carbsApe": 9.783845278725819,
+      "fatApe": 11.614730878186961,
+      "confidence": 0.66,
+      "tier": "medium",
+      "withinTolerance": true,
+      "isFailure": false,
+      "latencyMs": 1780
+    },
+    {
+      "id": "mixed-004",
+      "photo_ref": "pasta-bolognese-01",
+      "tp": 1,
+      "fp": 0,
+      "fn": 1,
+      "calApe": 28.246753246753247,
+      "proteinApe": 68.1728880157171,
+      "carbsApe": 10.967741935483872,
+      "fatApe": 81.86889818688982,
+      "confidence": 0.42,
+      "tier": "low",
+      "withinTolerance": false,
+      "isFailure": false,
+      "latencyMs": 1590
+    },
+    {
+      "id": "hard-005",
+      "photo_ref": "mixed-nuts-bowl-dim-light-01",
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "calApe": 29.914529914529915,
+      "proteinApe": 30.23255813953488,
+      "carbsApe": 30.23255813953488,
+      "fatApe": 30,
+      "confidence": 0.38,
+      "tier": "low",
+      "withinTolerance": false,
+      "isFailure": false,
+      "latencyMs": 2100
+    },
+    {
+      "id": "hard-006",
+      "photo_ref": "smoothie-glass-01",
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "calApe": 100,
+      "proteinApe": 100,
+      "carbsApe": 100,
+      "fatApe": 100,
+      "confidence": 0.05,
+      "tier": "low",
+      "withinTolerance": false,
+      "isFailure": true,
+      "latencyMs": 980
+    },
+    {
+      "id": "misid-007",
+      "photo_ref": "sweet-potato-fries-01",
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "calApe": 0.03846153846154721,
+      "proteinApe": 115.17241379310346,
+      "carbsApe": 25.742574257425744,
+      "fatApe": 608,
+      "confidence": 0.5,
+      "tier": "medium",
+      "withinTolerance": true,
+      "isFailure": false,
+      "latencyMs": 1340
+    },
+    {
+      "id": "multi-008",
+      "photo_ref": "breakfast-plate-eggs-toast-avocado-01",
+      "tp": 3,
+      "fp": 0,
+      "fn": 1,
+      "calApe": 21.31074453856443,
+      "proteinApe": 30.94170403587444,
+      "carbsApe": 56.41025641025642,
+      "fatApe": 9.014084507042261,
+      "confidence": 0.73,
+      "tier": "medium",
+      "withinTolerance": false,
+      "isFailure": false,
+      "latencyMs": 1910
+    },
+    {
+      "id": "single-009",
+      "photo_ref": "greek-yogurt-bowl-01",
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "calApe": 2.3972602739726026,
+      "proteinApe": 2.4242424242424154,
+      "carbsApe": 2.499999999999991,
+      "fatApe": 2.5641025641025665,
+      "confidence": 0.91,
+      "tier": "high",
+      "withinTolerance": true,
+      "isFailure": false,
+      "latencyMs": 720
+    },
+    {
+      "id": "hard-010",
+      "photo_ref": "dark-chocolate-squares-blurry-01",
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "calApe": 50,
+      "proteinApe": 50,
+      "carbsApe": 50,
+      "fatApe": 50,
+      "confidence": 0.88,
+      "tier": "high",
+      "withinTolerance": false,
+      "isFailure": false,
+      "latencyMs": 890
+    },
+    {
+      "id": "error-011",
+      "photo_ref": "corrupt-upload-01",
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "calApe": 100,
+      "proteinApe": 100,
+      "carbsApe": 100,
+      "fatApe": 100,
+      "confidence": 0,
+      "tier": "low",
+      "withinTolerance": false,
+      "isFailure": true,
+      "latencyMs": 240
+    },
+    {
+      "id": "multi-012",
+      "photo_ref": "taco-plate-01",
+      "tp": 2,
+      "fp": 0,
+      "fn": 1,
+      "calApe": 37.88521345773254,
+      "proteinApe": 25.5952380952381,
+      "carbsApe": 6.451612903225806,
+      "fatApe": 74.45255474452554,
+      "confidence": 0.64,
+      "tier": "medium",
+      "withinTolerance": false,
+      "isFailure": false,
+      "latencyMs": 1650
+    }
+  ],
+  "gates": [
+    {
+      "id": "calorie_mape",
+      "description": "Mean absolute percentage error on total calories (post user-facing raw estimate, before correction) must be <= 25%.",
+      "pass": true,
+      "value": 18.041414614037134
+    },
+    {
+      "id": "item_f1",
+      "description": "Item recognition F1 (label match) must be >= 0.6.",
+      "pass": true,
+      "value": 0.8484848484848485
+    },
+    {
+      "id": "calibration_ece",
+      "description": "Expected Calibration Error on the \"within 20% of true calories\" signal must be <= 0.15.",
+      "pass": false,
+      "value": 0.1775
+    },
+    {
+      "id": "high_tier_precision",
+      "description": "Among cases the model marks \"high confidence\" (>=0.8), calorie estimate must land within 20% of truth at least 90% of the time — a wrong high-confidence answer is the most damaging UX failure.",
+      "pass": false,
+      "value": 0.75
+    },
+    {
+      "id": "failure_rate",
+      "description": "Outright estimation failures (no_items_detected, estimation_error, timeout) must be <= 10% of cases.",
+      "pass": false,
+      "value": 0.16666666666666666
+    },
+    {
+      "id": "correction_effectiveness",
+      "description": "When users correct portions, mean calorie MAPE after correction must be lower than before (correction must actually reduce error).",
+      "pass": true,
+      "value": 20.944267065278005
+    },
+    {
+      "id": "p95_latency",
+      "description": "p95 end-to-end estimation latency must be <= 4000ms so the flow does not stall onboarding/logging.",
+      "pass": true,
+      "value": 2100
+    }
+  ],
+  "gateVerdict": "FAIL"
+}

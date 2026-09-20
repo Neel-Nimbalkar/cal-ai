@@ -1,0 +1,252 @@
+{
+  "$schema": "./manifest.schema.json",
+  "version": "1.0.0",
+  "description": "Labeled benchmark cases for CalAI's photo-based meal estimation flow. No copyrighted or real food photographs are included or required: each case is a synthetic 'photo_ref' (a descriptive id standing in for an image) plus ground-truth labels and, where useful, a canned raw estimator output so the harness is fully reproducible offline. In 'provider' mode the harness swaps ground-truth-derived canned outputs for a live vendor call keyed by the same photo_ref; in 'demo' mode it uses the deterministic local estimator shipped in this benchmark.",
+  "cases": [
+    {
+      "id": "single-001",
+      "photo_ref": "grilled-chicken-plate-01",
+      "notes": "Single dominant item, clean plate, good lighting.",
+      "ground_truth": {
+        "items": [ { "label": "Chicken breast, grilled", "grams": 150 } ],
+        "totals": { "calories": 248, "protein": 46.5, "carbs": 0, "fat": 5.4 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Chicken breast, grilled", "grams": 160, "confidence": 0.86 } ],
+        "totals": { "calories": 264, "protein": 49.6, "carbs": 0, "fat": 5.8 },
+        "overall_confidence": 0.86,
+        "latency_ms": 1120
+      },
+      "user_correction": { "items": [ { "label": "Chicken breast, grilled", "grams": 150 } ] }
+    },
+    {
+      "id": "single-002",
+      "photo_ref": "banana-01",
+      "notes": "Single small item, easy case, should be high confidence and low error.",
+      "ground_truth": {
+        "items": [ { "label": "Banana, medium", "grams": 118 } ],
+        "totals": { "calories": 105, "protein": 1.3, "carbs": 27, "fat": 0.4 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Banana, medium", "grams": 120, "confidence": 0.94 } ],
+        "totals": { "calories": 107, "protein": 1.3, "carbs": 27.5, "fat": 0.4 },
+        "overall_confidence": 0.94,
+        "latency_ms": 640
+      },
+      "user_correction": null
+    },
+    {
+      "id": "mixed-003",
+      "photo_ref": "rice-broccoli-chicken-bowl-01",
+      "notes": "Three items on one plate, moderate occlusion.",
+      "ground_truth": {
+        "items": [
+          { "label": "Chicken breast, grilled", "grams": 120 },
+          { "label": "Brown rice, cooked", "grams": 150 },
+          { "label": "Broccoli, steamed", "grams": 90 }
+        ],
+        "totals": { "calories": 574, "protein": 45.5, "carbs": 87.9, "fat": 7.06 }
+      },
+      "raw_estimate": {
+        "items": [
+          { "label": "Chicken breast, grilled", "grams": 100, "confidence": 0.71 },
+          { "label": "Brown rice, cooked", "grams": 180, "confidence": 0.68 },
+          { "label": "Broccoli, steamed", "grams": 60, "confidence": 0.6 }
+        ],
+        "totals": { "calories": 561, "protein": 39.7, "carbs": 96.5, "fat": 6.24 },
+        "overall_confidence": 0.66,
+        "latency_ms": 1780
+      },
+      "user_correction": {
+        "items": [
+          { "label": "Chicken breast, grilled", "grams": 120 },
+          { "label": "Brown rice, cooked", "grams": 150 },
+          { "label": "Broccoli, steamed", "grams": 90 }
+        ]
+      }
+    },
+    {
+      "id": "mixed-004",
+      "photo_ref": "pasta-bolognese-01",
+      "notes": "Sauce-covered pasta with ground beef mixed in; item boundaries hard to see.",
+      "ground_truth": {
+        "items": [
+          { "label": "Pasta, cooked cup", "grams": 200 },
+          { "label": "Ground beef 90%, 100g", "grams": 100 }
+        ],
+        "totals": { "calories": 616, "protein": 50.9, "carbs": 77.5, "fat": 14.34 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Pasta, cooked cup", "grams": 300, "confidence": 0.55 } ],
+        "totals": { "calories": 442, "protein": 16.2, "carbs": 86, "fat": 2.6 },
+        "overall_confidence": 0.42,
+        "latency_ms": 1590
+      },
+      "user_correction": {
+        "items": [
+          { "label": "Pasta, cooked cup", "grams": 200 },
+          { "label": "Ground beef 90%, 100g", "grams": 100 }
+        ]
+      }
+    },
+    {
+      "id": "hard-005",
+      "photo_ref": "mixed-nuts-bowl-dim-light-01",
+      "notes": "Low light, small dense items, model should signal low confidence.",
+      "ground_truth": {
+        "items": [ { "label": "Almonds, 28g", "grams": 40 } ],
+        "totals": { "calories": 234, "protein": 8.6, "carbs": 8.6, "fat": 20 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Almonds, 28g", "grams": 28, "confidence": 0.38 } ],
+        "totals": { "calories": 164, "protein": 6, "carbs": 6, "fat": 14 },
+        "overall_confidence": 0.38,
+        "latency_ms": 2100
+      },
+      "user_correction": { "items": [ { "label": "Almonds, 28g", "grams": 40 } ] }
+    },
+    {
+      "id": "hard-006",
+      "photo_ref": "smoothie-glass-01",
+      "notes": "Blended/liquid meal — model has no reliable visual portion cue; a known failure mode.",
+      "ground_truth": {
+        "items": [ { "label": "Protein shake", "grams": 300 } ],
+        "totals": { "calories": 300, "protein": 60, "carbs": 7.5, "fat": 3.75 }
+      },
+      "raw_estimate": {
+        "items": [],
+        "totals": { "calories": 0, "protein": 0, "carbs": 0, "fat": 0 },
+        "overall_confidence": 0.05,
+        "latency_ms": 980,
+        "failure": "no_items_detected"
+      },
+      "user_correction": { "items": [ { "label": "Protein shake", "grams": 300 } ] }
+    },
+    {
+      "id": "misid-007",
+      "photo_ref": "sweet-potato-fries-01",
+      "notes": "Visually similar to regular fries; tests item-label precision/recall, not just calories.",
+      "ground_truth": {
+        "items": [ { "label": "Sweet potato, medium", "grams": 130 } ],
+        "totals": { "calories": 130, "protein": 2.9, "carbs": 30.3, "fat": 0.25 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Whole wheat bread", "grams": 130, "confidence": 0.5 } ],
+        "totals": { "calories": 130.05, "protein": 6.24, "carbs": 22.5, "fat": 1.77 },
+        "overall_confidence": 0.5,
+        "latency_ms": 1340
+      },
+      "user_correction": { "items": [ { "label": "Sweet potato, medium", "grams": 130 } ] }
+    },
+    {
+      "id": "multi-008",
+      "photo_ref": "breakfast-plate-eggs-toast-avocado-01",
+      "notes": "Four items, partial occlusion of toast under avocado.",
+      "ground_truth": {
+        "items": [
+          { "label": "Egg, large", "grams": 100 },
+          { "label": "Whole wheat bread", "grams": 60 },
+          { "label": "Avocado, half", "grams": 70 },
+          { "label": "Cheddar, 28g", "grams": 28 }
+        ],
+        "totals": { "calories": 448.6, "protein": 22.3, "carbs": 15.6, "fat": 35.5 }
+      },
+      "raw_estimate": {
+        "items": [
+          { "label": "Egg, large", "grams": 100, "confidence": 0.8 },
+          { "label": "Avocado, half", "grams": 70, "confidence": 0.77 },
+          { "label": "Cheddar, 28g", "grams": 28, "confidence": 0.62 }
+        ],
+        "totals": { "calories": 353, "protein": 15.4, "carbs": 6.8, "fat": 32.3 },
+        "overall_confidence": 0.73,
+        "latency_ms": 1910
+      },
+      "user_correction": {
+        "items": [
+          { "label": "Egg, large", "grams": 100 },
+          { "label": "Whole wheat bread", "grams": 60 },
+          { "label": "Avocado, half", "grams": 70 },
+          { "label": "Cheddar, 28g", "grams": 28 }
+        ]
+      }
+    },
+    {
+      "id": "single-009",
+      "photo_ref": "greek-yogurt-bowl-01",
+      "notes": "High-confidence, near-exact match; used to pull calibration toward well-behaved region.",
+      "ground_truth": {
+        "items": [ { "label": "Greek yogurt, plain", "grams": 200 } ],
+        "totals": { "calories": 292, "protein": 33, "carbs": 16, "fat": 7.8 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Greek yogurt, plain", "grams": 205, "confidence": 0.91 } ],
+        "totals": { "calories": 299, "protein": 33.8, "carbs": 16.4, "fat": 8 },
+        "overall_confidence": 0.91,
+        "latency_ms": 720
+      },
+      "user_correction": null
+    },
+    {
+      "id": "hard-010",
+      "photo_ref": "dark-chocolate-squares-blurry-01",
+      "notes": "Blurry photo, model estimates with unjustified high confidence — tests overconfidence / calibration.",
+      "ground_truth": {
+        "items": [ { "label": "Dark chocolate, 28g", "grams": 56 } ],
+        "totals": { "calories": 340, "protein": 4.4, "carbs": 26, "fat": 24 }
+      },
+      "raw_estimate": {
+        "items": [ { "label": "Dark chocolate, 28g", "grams": 28, "confidence": 0.88 } ],
+        "totals": { "calories": 170, "protein": 2.2, "carbs": 13, "fat": 12 },
+        "overall_confidence": 0.88,
+        "latency_ms": 890
+      },
+      "user_correction": { "items": [ { "label": "Dark chocolate, 28g", "grams": 56 } ] }
+    },
+    {
+      "id": "error-011",
+      "photo_ref": "corrupt-upload-01",
+      "notes": "Simulates a pipeline failure (corrupt/empty photo) — must be counted in failure rate, not silently dropped.",
+      "ground_truth": {
+        "items": [ { "label": "Hummus, 2 tbsp", "grams": 30 } ],
+        "totals": { "calories": 70, "protein": 2, "carbs": 6, "fat": 4.5 }
+      },
+      "raw_estimate": {
+        "items": [],
+        "totals": { "calories": 0, "protein": 0, "carbs": 0, "fat": 0 },
+        "overall_confidence": 0,
+        "latency_ms": 240,
+        "failure": "estimation_error"
+      },
+      "user_correction": { "items": [ { "label": "Hummus, 2 tbsp", "grams": 30 } ] }
+    },
+    {
+      "id": "multi-012",
+      "photo_ref": "taco-plate-01",
+      "notes": "Composite/wrapped item (tortilla + beans), tests label granularity mismatch.",
+      "ground_truth": {
+        "items": [
+          { "label": "Flour tortilla", "grams": 50 },
+          { "label": "Black beans, cup", "grams": 130 },
+          { "label": "Cheddar, 28g", "grams": 28 }
+        ],
+        "totals": { "calories": 353.7, "protein": 16.8, "carbs": 46.5, "fat": 13.7 }
+      },
+      "raw_estimate": {
+        "items": [
+          { "label": "Flour tortilla", "grams": 50, "confidence": 0.7 },
+          { "label": "Black beans, cup", "grams": 100, "confidence": 0.58 }
+        ],
+        "totals": { "calories": 219.7, "protein": 12.5, "carbs": 43.5, "fat": 3.5 },
+        "overall_confidence": 0.64,
+        "latency_ms": 1650
+      },
+      "user_correction": {
+        "items": [
+          { "label": "Flour tortilla", "grams": 50 },
+          { "label": "Black beans, cup", "grams": 130 },
+          { "label": "Cheddar, 28g", "grams": 28 }
+        ]
+      }
+    }
+  ]
+}

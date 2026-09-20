@@ -2,3 +2,10 @@ const fs=require('fs'),assert=require('assert'),{FOODS}=require('../foods');let 
 t('double opt-in backend exists',()=>{assert.ok(waitlist.includes('RESEND_API_KEY'));assert.ok(waitlist.includes("status:'pending'"));assert.ok(confirm.includes("status:'confirmed'"))});
 t('consent is explicit',()=>{assert.ok(html.includes('waitlist-consent'));assert.ok(html.includes('Consent Notice'))});
 t('privacy pages exist',()=>{assert.ok(fs.existsSync('privacy.html'));assert.ok(fs.existsSync('consent.html'))});
+const estimator=fs.readFileSync('netlify/functions/estimate-meal.mjs','utf8');
+t('photo estimation flow exists',()=>['meal-photo','estimate-photo','overall-confidence','log-estimate'].forEach(x=>assert.ok(html.includes('id="'+x+'"'))));
+t('photo validation and transient privacy copy exist',()=>{assert.ok(js.includes("image/jpeg"));assert.ok(js.includes('5*1024*1024'));assert.ok(html.includes('not saved by CalAI'))});
+t('confidence and correction are implemented',()=>{assert.ok(js.includes('confidenceLabel'));assert.ok(js.includes('correctedRatio'));assert.ok(js.includes('Corrected total'))});
+t('photo meals integrate with diary',()=>{assert.ok(js.includes("source:'photo-estimate'"));assert.ok(js.includes("meal:$('#meal').value"))});
+t('estimator has provider and honest demo modes',()=>{assert.ok(estimator.includes('OPENAI_API_KEY'));assert.ok(estimator.includes("mode:'demo'"));assert.ok(estimator.includes('Demo estimate—not image analysis'))});
+t('estimator validates uploads and disables caching',()=>{assert.ok(estimator.includes('MAX_BYTES'));assert.ok(estimator.includes("'cache-control':'no-store'"));assert.ok(estimator.includes('ALLOWED'))});

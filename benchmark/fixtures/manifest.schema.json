@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CalAI photo-estimation benchmark manifest",
+  "type": "object",
+  "required": ["version", "cases"],
+  "properties": {
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "photo_ref", "ground_truth", "raw_estimate"],
+        "properties": {
+          "id": { "type": "string" },
+          "photo_ref": {
+            "type": "string",
+            "description": "Stable identifier standing in for a photo. No image bytes are stored in this repository. In provider mode, a real vendor/photo fixture set keyed by the same ids may be supplied out-of-band (e.g. via a local, gitignored directory) for live runs."
+          },
+          "notes": { "type": "string" },
+          "ground_truth": {
+            "type": "object",
+            "required": ["items", "totals"],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "grams"],
+                  "properties": {
+                    "label": { "type": "string" },
+                    "grams": { "type": "number", "minimum": 0 }
+                  }
+                }
+              },
+              "totals": {
+                "type": "object",
+                "required": ["calories", "protein", "carbs", "fat"],
+                "properties": {
+                  "calories": { "type": "number" },
+                  "protein": { "type": "number" },
+                  "carbs": { "type": "number" },
+                  "fat": { "type": "number" }
+                }
+              }
+            }
+          },
+          "raw_estimate": {
+            "type": "object",
+            "description": "The estimator's output BEFORE any user portion correction.",
+            "required": ["items", "totals", "overall_confidence", "latency_ms"],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "grams", "confidence"],
+                  "properties": {
+                    "label": { "type": "string" },
+                    "grams": { "type": "number", "minimum": 0 },
+                    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+                  }
+                }
+              },
+              "totals": {
+                "type": "object",
+                "required": ["calories", "protein", "carbs", "fat"],
+                "properties": {
+                  "calories": { "type": "number" },
+                  "protein": { "type": "number" },
+                  "carbs": { "type": "number" },
+                  "fat": { "type": "number" }
+                }
+              },
+              "overall_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+              "latency_ms": { "type": "number", "minimum": 0 },
+              "failure": {
+                "type": "string",
+                "description": "Present when the estimator failed outright (e.g. no_items_detected, estimation_error, timeout)."
+              }
+            }
+          },
+          "user_correction": {
+            "type": ["object", "null"],
+            "description": "Simulated user portion-correction input. Null means the user accepted the raw estimate unchanged.",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "grams"],
+                  "properties": {
+                    "label": { "type": "string" },
+                    "grams": { "type": "number", "minimum": 0 }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
