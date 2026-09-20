@@ -48,6 +48,7 @@ New signups remain `pending` until the recipient follows the one-time confirmati
 
 The endpoint is `POST /api/estimate-meal`. Without provider credentials it returns a clearly labeled deterministic demo meal so the review and correction UX remains testable; it never pretends the photo was analyzed. To enable live image analysis, set:
 
+- `CALAI_PHOTO_PROVIDER_ENABLED=true` — explicit production opt-in
 - `OPENAI_API_KEY` — server-side only; never expose it in browser code
 - `CALAI_VISION_MODEL` — optional, defaults to `gpt-4o-mini`
 
